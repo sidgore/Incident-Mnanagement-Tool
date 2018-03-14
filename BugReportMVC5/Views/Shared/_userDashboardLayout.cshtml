@@ -1,0 +1,162 @@
+﻿ 
+    <!DOCTYPE html>   
+
+    <html lang="en">
+     
+    <head>
+      <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1"> 
+
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+     
+       <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+  
+         
+     <link rel="stylesheet" href="~/css/sid.css" type="text/css" />
+        
+
+             
+
+              <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/customer_style.css" type="text/css" />
+    
+      
+        
+
+ 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        
+
+        <script src="https://canvasjs.com/assets/script/canvasjs.min.js"> </script>  
+
+
+       
+       <title>@ViewData["Title"]</title>  
+
+            
+  
+    </head> 
+
+<body style="background-color:#d9d9d9;margin-top: 0px;height:100%;font-family: OmnesATTII;"> 
+
+    <!-- Navbar -->
+
+
+    @{ User message = (TempData["User"] as User);  }
+    <!-- Navbar -->
+    <div class="w3-bar w3-top w3-blue" style="z-index: 4; margin-top: 0px;height:50px;background-image: linear-gradient(to top, #da932c, #f0a437);color: #ffffff;">
+
+        <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();">
+            <i class="fa fa-bars"></i> Menu</button>
+             <a href="#" class="w3-bar-item w3-button w3-left w3-hide-small w3-center " style=" background-color: #bd7710;border-radius: 4px;margin-left:1%;margin-top:4px;width:3.2%">
+           <img src="~/img/tar-logo.png" height="20px"  > 
+                 </a>
+        <a asp-area="" asp-controller="Home" asp-action="Index" class="w3-bar-item w3-button w3-padding-large" style="height:100%;background-image: linear-gradient(to top, #da932c, #f0a437);color: #ffffff;"> Technical Assistance Report </a>
+        <a asp-area="" asp-controller="Home" asp-action="Index" class="w3-bar-item w3-button w3-padding-large " style="height:100%;background-image: linear-gradient(to top, #da932c, #f0a437);">Home</a>
+        <a asp-area="" asp-controller="Home" asp-action="About" class="w3-bar-item w3-button w3-padding-large" style="height:100%;background-image: linear-gradient(to top, #da932c, #f0a437);">About</a>
+        <a asp-area="" asp-controller="Home" asp-action="Contact" class="w3-bar-item w3-button w3-padding-large" style="height:100%;background-image: linear-gradient(to top, #da932c, #f0a437);"  >Contact Us</a>
+        <a asp-area="" asp-controller="Home" asp-action="Logout" class="w3-bar-item w3-button w3-blue w3-padding-large w3-right " title="Logout"  style="height:100%;background-image: linear-gradient(to top, #da932c, #f0a437);">
+             <img src="~/img/logout.svg" height="60%"  />
+        </a>
+
+
+        <span class="w3-bar-item w3-button w3-padding-large w3-right" style="height:100%;margin-right:0px;background-image: linear-gradient(to top, #da932c, #f0a437);">Welcome,
+            <strong> @message.user_name </strong>!</span>
+    </div>
+
+
+
+    <!-- Sidebar/menu -->
+    <nav class="w3-sidebar  w3-collapse w3-animate-left " style="width:280px;background-color:#212531;color:#ffffff;margin-top:0px;"
+        id="mySidebar">
+        <br>
+       
+        <div class="w3-bar-block">
+                <a  onclick="w3_close()" class="sidbar" asp-area="" asp-controller="Dashboard" asp-action="Index" style="line-height: 2.5; color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(220,148,44,0.4)'" onmouseout="this.style.backgroundColor='#212531'">
+                <img src="~/img/admin/dashboard.svg"/> <span style="margin-left:6%">Dashboard</span></a>
+
+                
+                <!-- <a  onclick="w3_close()" class="w3-bar-item w3-button" asp-area="" asp-controller="Problem" asp-action="Index" style="line-height: 2.5;" onmousein="this.style.backgroundColor='yellow'"  onmouseout="this.style.backgroundColor='black'">
+                   <img src="/img/admin/icon.png" />  <span style="margin-left:6%"> Create a Ticket</span></a>
+-->
+
+                <a  onclick="w3_close()" class="sidbar" asp-area="" asp-controller="Problem" asp-action="Index" style="line-height: 2.5; color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(220,148,44,0.4)'" onmouseout="this.style.backgroundColor='#212531'">
+                   <img src="/img/admin/icon.png" />  <span style="margin-left:6%"> Create a Ticket</span></a>
+             
+   
+                  <a onclick="w3_close()" class="sidbar" asp-area="" asp-controller="Problem" asp-action="ViewStatusUser" style="line-height: 2.5; color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(220,148,44,0.4)'" onmouseout="this.style.backgroundColor='#212531'">
+                       <img src="/img/admin/icon.png" />  <span style="margin-left:6%">View All Tickets</span></a>
+               
+         <a onclick="w3_close()" class="sidbar" asp-area="" asp-controller="User" asp-action="UpdateProfile" style="line-height: 2.5; color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(220,148,44,0.4)'" onmouseout="this.style.backgroundColor='#212531'">
+                     <img src="/img/update.svg" /> <span style="margin-left:6%">Update Profile</span></a>
+               
+                </div>     
+      <div class="w3-bar-block" style="position: absolute;bottom: 7%; margin-left:27%;">
+            <img class="w3-hover-blue" src="~/img/logo.png" align="middle" style="padding:5px;" /> </div>
+    </nav>
+        
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+ <div  style="margin-left:280px">
+
+   
+
+              @RenderBody()
+        
+       <br>
+    </div>
+
+       
+     
+
+    <!-- Bootstrap core JavaScript
+       ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+       
+              
+
+
+              <script>
+// Get the Sidebar
+var mySidebar = document.getElementById("mySidebar");
+
+// Get the DIV with overlay effect
+var overlayBg = document.getElementById("myOverlay");
+
+// Toggle between showing and hiding the sidebar, and add overlay effect
+function w3_open() {
+    if (mySidebar.style.display === 'block') {
+        mySidebar.style.display = 'none';
+        overlayBg.style.display = "none";
+    } else {
+        mySidebar.style.display = 'block';
+        overlayBg.style.display = "block";
+    }
+}
+
+// Close the sidebar with the close button
+function w3_close() {
+    mySidebar.style.display = "none";
+    overlayBg.style.display = "none";
+}
+</script>
+         @section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+      
+               
+</body>
+</html>
+
+  

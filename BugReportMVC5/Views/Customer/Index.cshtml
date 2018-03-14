@@ -1,0 +1,61 @@
+﻿@model IEnumerable<BugReportMVC5.Models.Customer>
+@{
+ViewData["Title"]="View All Customers";
+Layout = "_adminDashboardLayout"; }  
+
+        
+                <div  style="margin-left:2%;font-family: OmnesATTII;" >
+    <h3>
+        
+             <img src="~/img/admin/company1.svg"/>  <span style="color: #545b70; font-weight: 500;font-family: OmnesATTII;font-size: 20px;">View All Customers </span>    
+    </h3>
+</div>   
+
+        
+
+    
+   
+
+  <div class="w3-white" style="width: 96%;margin-left:2%; margin-right:2%;font-family: OmnesATTII;"> 
+
+     
+         
+ 
+    
+                <table class="w3-table w3-centered w3-hoverable" style="padding:3px;font-family: OmnesATTII;">
+                    <thead style="border-bottom: 1px solid;border-color:#e7e9ed;opacity: 0.7;">  
+                        <tr style="background-color: #f5f8fa;">
+                            <th>
+                                @Html.DisplayNameFor(model => model.Customer_id)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Customer_name)
+                            </th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+            {
+                            <tr style="border-bottom:1px solid;border-color:#e7e9ed;font-family: OmnesATTII;">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Customer_id)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Customer_name)
+                                </td>
+                          
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+</div>
+        <!-- Sidebar/menu -->
+         
+         <div style="margin-top:8px;margin-right:1%;font-family: OmnesATTII;">    
+      <a class="w3-button w3-green" style="float:right;margin-right:15px;border-radius: 4px;background-image: linear-gradient(to bottom, #39b54a, #33aa44);color:#ffffff;font-family: OmnesATTII;" asp-action="createCustomer">Create New Customer</a>     
+
+</div>
+      
+
+ 

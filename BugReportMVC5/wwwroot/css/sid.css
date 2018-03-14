@@ -1,0 +1,236 @@
+﻿@font-face {
+    font-family: Omnes_ATT;
+    src: url('Omnes_ATT II-Regular.otf')
+}
+
+body {
+    background-color: #212531;
+    font-family: Omnes_ATT;
+    overflow:scroll;
+} 
+
+body, html { 
+    font-family: Omnes_ATT;
+    height: 100%;
+     background-repeat: no-repeat
+}
+
+
+.contents {
+    height: 100%;
+    width: 100%;
+    top: 3%;
+    position: relative
+
+}   
+ 
+.card-container.card {
+    position: relative;
+    max-width: 350px;
+    padding: 40px 40px
+}
+
+.logo {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+}
+
+.title-container {
+    color: #269cf4;
+    position: relative;
+    max-width: 100%;
+    padding: 40px 40px;
+    vertical-align: middle
+}
+
+ 
+.tar-logo {
+    background-color: #269cf4;
+    width: 57px;
+    height: 57px;
+    object-fit: contain;
+    border-radius: 4px;
+    background-image: url("tar-logo.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 0 auto
+} 
+
+.btn {
+    font-weight: 700;
+    height: 36px;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: default
+}
+
+.title-bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 70px;
+    width: 100%;
+    background-color: #e7e9ed;
+    line-height: 70px;
+    font-size: 24px;
+    font-weight: 500;
+    color: #354052;
+    text-align: center;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom: 1px solid #dfe3e9
+}
+ 
+.title {
+    margin: 0 auto 5px;
+    text-align: center;
+    font-size: 30px
+}
+
+.footer {
+    margin: 0 auto 5px;
+    text-align: center;
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.s-ti {
+    margin-top: 40px
+}
+
+.sub {
+    font-size: 16px
+}
+
+.card {
+    background-color: #FFFFFF;
+    /* just in case there no content*/
+    padding: 20px 25px 30px;
+    margin: 0 auto 25px;
+    /* shadows and rounded borders */
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    border-radius: 5px
+}
+
+.profile-img-card {
+    width: 96px;
+    height: 96px;
+    margin: 0 auto 10px;
+    display: block;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%
+}
+
+.profile-name-card {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    margin: 10px 0 0;
+    min-height: 1em
+}
+
+.reauth-email {
+    display: block;
+    color: #404040;
+    line-height: 2;
+    margin-bottom: 10px;
+    font-size: 14px;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box
+}
+
+.form-signin #inputEmail,
+.form-signin #inputPassword {
+    direction: ltr;
+    height: 44px;
+    font-size: 16px;
+    border: solid 1px #dfe3e9
+}
+
+.form-signin input[type=email],
+.form-signin input[type=password],
+.form-signin input[type=text],
+.form-signin button {
+    width: 100%;
+    display: block;
+    margin-bottom: 10px;
+    z-index: 1;
+    position: relative;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box
+}
+
+.form-signin .form-control:focus {
+    background-color: #f8fafc;
+    border: solid 1px #dfe3e9
+}
+
+.btn.btn-signin {
+    background-color: #39b54a;
+    padding: 0px;
+    font-weight: 700;
+    font-size: 14px;
+    height: 36px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    border: none;
+    -o-transition: all 0.218s;
+    -moz-transition: all 0.218s;
+    -webkit-transition: all 0.218s;
+    transition: all 0.218s;
+    color: #FFFFFF
+}
+
+
+.outer-add-customer {
+    border: 1px;
+     
+    
+    margin-right: 1%;  
+    background-color: white;
+    border-radius: 5px;  
+}
+
+.navigation {
+    width: 100%;
+    height: 0px;
+    background-color: blue;
+    margin-top: 0
+
+}
+
+
+
+.required {
+    color: red
+}
+
+
+.sidbar {
+    line-height: 2.5;
+    width: 100%;
+    overflow-x: hidden;
+    padding: 8px 8px 8px 32px;
+    font-size: 15px;
+    display: block;
+    font-family: OmnesATTII;
+    color: #ffffff;
+
+}
+
+ 

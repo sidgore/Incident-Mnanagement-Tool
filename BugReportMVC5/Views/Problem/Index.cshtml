@@ -1,0 +1,194 @@
+﻿@using Microsoft.AspNetCore.Builder
+@using Microsoft.AspNetCore.Http
+@using System.Diagnostics;
+@using Microsoft.AspNetCore.Http;
+@using BugReportMVC5.Models;
+@using Microsoft.AspNetCore.Mvc;
+@using Newtonsoft.Json;
+@model BugReportMVC5.Models.Problem
+@{
+    ViewData["Title"] = "Raise a Ticket";
+    Layout = "_userDashboardLayout"; }
+
+
+
+
+<div style="margin-left:2%;font-family: OmnesATTII;">
+    <h3>
+
+        @{
+            User message = (TempData["User"] as User); // might throw a NullReferenceException
+        }
+        <img src="~/img/admin/developer.svg" /><span style="padding-left:1%;color: #545b70; font-weight: 500;font-family: OmnesATTII;font-size: 20px;">Create a Ticket </span>
+
+
+    </h3>
+</div>
+
+
+
+
+<div class="outer-add-customer" style="margin-left:2%;width:96%;margin-right:2%;font-family: OmnesATTII;padding:1.5%;">
+
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            var item = "<option value='0'>---SELECT---</option>";
+            $("#Module_id").html(item);
+        });
+
+    </script>
+
+
+
+
+
+
+
+
+
+    <form role="form" class="w3-container" method="post" asp-action="Index" style="font-family: OmnesATTII;"  onsubmit=" return validateMultipleEmailsCommaSeparated(',');">
+
+
+
+
+        <div class="form-group" style="width:100%;display: inline-block;">
+
+            <span style="float: left;  font-size: 16px;width:10%;font-family: OmnesATTII;font-weight: 500;color: #7f8fa4;"><span class="required">*</span>User ID</span>
+
+
+            <input asp-for="User_Id" class="w3-input w3-border w3-round" value="@message.user_id" style="width: 90%;" readonly="" />
+
+
+            <span asp-validation-for="User_Id" class="text-danger"></span>
+
+        </div>
+
+        <div class="form-group" style="width:100%;display: inline-block;">
+
+            <span style="float: left;font-size: 16px;width:10%;font-family: OmnesATTII;font-weight: 500;color: #7f8fa4; "><span class="required">*</span>Customer ID</span>
+
+
+            <input asp-for="Created_By" class="w3-input w3-border w3-round" value="@message.customer_id" style="width: 90%;" readonly="" />
+            <span asp-validation-for="Created_By" class="text-danger"></span>
+
+
+        </div>
+
+        <div class="form-group" style="width:100%;display: inline-block;">
+            <span style="float: left;font-size: 16px;width:10%;font-family: OmnesATTII;font-weight: 500;color: #7f8fa4;"><span class="required">*</span>Categories</span>
+            <select asp-for="Module_Name" name="Module_Name" id="Module_Name" class="form-control w3-input w3-border w3-round" asp-items="@(new SelectList(@ViewBag.ListofCategories, "Category_id", "Category_name"))" style="width: 90%;"></select>
+        </div>
+
+
+        <div class="form-group" style="width:100%;display: inline-block;">
+
+
+            <span asp-for="Problem_Desc" style="float: left;font-size: 16px;width:10%;font-family: OmnesATTII;font-weight: 500;color: #7f8fa4; "><span class="required">*</span>Problem Description</span>
+            <input asp-for="Problem_Desc" class="w3-input w3-border w3-round" style="width: 90%;" required="" />
+            <span asp-validation-for="Problem_Desc" class="text-danger"></span>
+
+
+        </div>
+
+        <div class="form-group" style="width:100%;display: inline-block;">
+            <span asp-for="Summary" style="float:left; font-size: 16px;width:10%;font-family: OmnesATTII;font-weight: 500;color: #7f8fa4; "><span class="required">*</span>Summary</span>
+            <input asp-for="Summary" class="w3-input w3-border w3-round" style="width: 90%;" required="" />
+            <span asp-validation-for="Summary" class="text-danger"></span>
+
+
+        </div>
+
+
+        <div class="form-group" style="width:100%;display: inline-block;height:100%;">
+            <span asp-for="Severity" style="float: left;font-size: 16px;width:10%;font-family: OmnesATTII;font-weight: 500;color: #7f8fa4; "><span class="required">*</span>Severity</span>
+
+            <select asp-for="Severity" class="w3-input w3-border w3-round" style="width: 90%;height:100%;" required="">
+                <option value="1">1 - High</option>
+                <option value="2">2 - Low</option>
+                <option value="3">3 - Medium</option>
+            </select>
+        </div>
+
+        <div class="form-group" style="width:100%;height:100%;display: inline-block;">
+            <span asp-for="EmailList" style="float: left;font-size: 16px;width:10%;font-family: OmnesATTII;font-weight: 500;color: #7f8fa4;"><span class="required">*</span>Email Addresses to be notified</span>
+            <input asp-for="EmailList" class="w3-input w3-border w3-round" style="width:90%;" type="text"   required="" />
+            <span asp-validation-for="EmailList" class="text-danger"></span>
+
+        </div>
+
+
+        <div class="form-group" style="width:100%;display:block;display: inline-block;">
+            <span asp-for="EmailNotificationstatus" style="float: left;font-size: 16px;width:10%;font-family: OmnesATTII;font-weight: 500;color: #7f8fa4; ">Email Notifications</span>
+            <!--   <input type="checkbox" name="vehicle" value="Bike">On Ticket Status Change-->
+            <input id="EmailNotificationstatus" name="EmailNotificationstatus" type="checkbox" value="true"> <span style="margin-left:1%;">On Comments </span>
+
+
+        </div>
+
+        <div class="form-group" style="width:100%;display: inline-block;">
+
+            <input type="submit" value="Create" class="w3-button  w3-round" style="float: right;background-image: linear-gradient(to bottom, #39b54a, #33aa44);color: #ffffff;" />
+        </div>
+
+    </form>
+    <div class=" w3-container text-center" style="color:red;">@TempData["Errors"]</div>
+
+</div>
+
+<script>
+
+    $(document).ready(function() {
+
+        var url = '@Url.Content("~/")' + "Problem/GetModule";
+        var source = "#Module_Name";
+
+        $.getJSON(url,
+            { Category_id: $(source).val() },
+            function(data) {
+                var items = '';
+                $("#Module_id").empty();
+                $.each(data,
+                    function(i, module) {
+                        items = "<option value = '" + module.value + "'>" + module.text + "</option>";
+                    });
+                $("#Module_id").html(items);
+            });
+    });
+
+
+
+
+
+
+
+</script>
+
+
+<script language="javascript">
+function validateEmail(field) {
+    var regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,5}$/;
+    return (regex.test(field)) ? true : false;
+}
+    function validateMultipleEmailsCommaSeparated(seperator) {
+        var emailcntl = document.getElementById("sid");
+    var value = emailcntl.value;
+    if (value != '') {
+        var result = value.split(seperator);
+        for (var i = 0; i < result.length; i++) {
+            if (result[i] != '') {
+                if (!validateEmail(result[i])) {
+                    emailcntl.focus();
+                    alert('Please check, `' + result[i] + '` email addresses not valid!');
+                    return false;
+                }
+            }
+        }
+    }
+    return true;
+}
+</script>
+    
+

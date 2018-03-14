@@ -1,0 +1,84 @@
+﻿ @using Newtonsoft.Json; 
+@{
+var yList = (ViewBag.ListOfTicketsByStatus as IEnumerable<ViewStatus>).Select(x => x.count).ToArray();
+var xList= (ViewBag.ListOfTicketsByStatus as IEnumerable<ViewStatus>).Select(x => x.Status_name).ToList<String>(); 
+} 
+
+                         
+                          <div class="w3-white" id="chart_div" style="width: 96%;margin-left:2%; margin-right:2%"></div>   
+
+                       
+
+
+                         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+
+      // Load the Visualization API and the corechart package.
+      google.charts.load('current', {'packages':['corechart']});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.charts.setOnLoadCallback(drawChart);
+
+      // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+
+       var Ylist = @Html.Raw(JsonConvert.SerializeObject(@yList));
+                            var Xlist = @Html.Raw(JsonConvert.SerializeObject(@xList));
+                              
+   
+    
+
+         var myDATA = [new Array('Status', 'Count')];
+    
+two1dto2d(myDATA, Xlist, Ylist);
+
+  
+     
+function two1dto2d(c, a, b) {
+  for (var i = 0; i < a.length; i++) {
+    c.push([a[i], b[i]]);
+  }
+}
+
+
+    
+    
+      function drawChart() { 
+
+        // Create the data table. 
+       var data = google.visualization.arrayToDataTable(myDATA,  false); // 'false' means that the first row contains labels, not data.
+           
+        // Set chart options
+        var options = {'title':'Total Number of Tickets -Status Wise',  
+                       'width':1000,  
+                       'height':300}; 
+
+   
+
+                        
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+    
+    
+        chart.draw(data, options); 
+     
+      }
+    
+    </script>
+     
+
+
+                     
+
+
+
+
+
+
+
+
+
+
+
+                      

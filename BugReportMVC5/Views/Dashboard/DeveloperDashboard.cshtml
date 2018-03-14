@@ -1,0 +1,87 @@
+﻿@model BugReportMVC5.Models.User
+@{
+ViewData["Title"]="Developer Dashboard";
+Layout = "_developerDashboardLayout"; }
+
+
+
+
+
+<div  style="margin-left:2%;width:96%; margin-right:2%;font-family: OmnesATTII;"> 
+    <h3>
+       
+            <img src="~/img/admin/dashboard1.svg" /> <span style="font-family: OmnesATTII;font-size: 20px;font-weight: bold;letter-spacing: -0.3px;color: #545b70;">  @Model.user_name 's Dashboard </span>
+    </h3>
+</div>  
+  
+
+ 
+ 
+
+  
+
+             
+
+      @{ Html.RenderPartial("_ChartsDeveloper"); } 
+
+
+      <div  style="margin-left:2%; margin-right:2%;font-family: OmnesATTII;"> 
+    <h3>
+        <img src="/img/admin/icon1.svg" /> <span style="font-family: OmnesATTII;font-size: 20px;font-weight: bold;letter-spacing: -0.3px;color: #545b70;"> View Tickets by Status </span>
+       
+    </h3>
+    </div>  
+      
+         
+
+ <div class="w3-white" style="width: 96%;margin-left:2%; margin-right:2%;font-family: OmnesATTII;"> 
+   <table class="w3-table w3-centered w3-hoverable" style="padding:3px;font-family: OmnesATTII;">
+                    <thead style="border-bottom: 1px solid;border-color:#e7e9ed;opacity: 0.7;">  
+                        <tr style="background-color: #f5f8fa;color: #7f8fa4;">
+                <th class="w3-left">
+                               Status
+                            </th>
+                            <th>
+                              Count
+                            </th>
+                             
+                        </tr>
+                    </thead>
+
+                   <tbody>    
+
+                      
+                
+
+                          @foreach (var item in ViewBag.ListOfTicketsByStatus)
+{  
+   <tr style="border-bottom:1px solid;border-color:#e7e9ed;font-family: OmnesATTII;">
+                <td class="w3-left" style="color: #354052;">
+                <span style="color: #354052;"> @item.Status_name </span>  </td>
+                        <td> <span> @item.count </span>  </td>
+
+                    </tr>  
+}
+</tbody> 
+
+
+
+                    </table>
+
+                
+ 
+ 
+        
+        </div> 
+        
+
+
+
+              
+ 
+      
+
+
+    
+
+       

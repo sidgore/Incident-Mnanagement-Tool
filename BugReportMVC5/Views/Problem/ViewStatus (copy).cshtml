@@ -1,0 +1,317 @@
+﻿@model IEnumerable<BugReportMVC5.Models.Problem>
+
+@{
+    ViewData["Title"] = "createUser";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <title>View Logged Tickets</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/customer_style.css" type="text/css" />
+ 
+          <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins"> 
+ 
+
+       <style>
+        body,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            font-family: "Poppins", sans-serif
+        }
+
+        body {
+            font-size: 16px;
+        }
+
+        .w3-half img {
+            margin-bottom: -6px;
+            margin-top: 16px;
+            opacity: 0.8;
+            cursor: pointer
+        }
+
+            .w3-half img:hover {
+                opacity: 1
+            }
+    </style>
+    @**@
+</head> 
+<body>
+
+       <!-- Navbar -->
+<div class="w3-top">
+  <div class="w3-bar w3-black w3-card">
+    <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+    <a  asp-area="" asp-controller="Home" asp-action="Index" class="w3-bar-item w3-button w3-padding-large">Technical Assistance Report </a>
+    <a  asp-area="" asp-controller="Home" asp-action="Index" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Home</a>
+    <a  asp-area="" asp-controller="Home" asp-action="About" class="w3-bar-item w3-button w3-padding-large w3-hide-small">About</a>
+    <a  asp-area="" asp-controller="Home" asp-action="Contact" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Contact Us</a> 
+    <a  asp-area="" asp-controller="Home" asp-action="Logout"  class="w3-bar-item w3-button w3-green w3-padding-large w3-hide-small" >Logout</a> 
+                         <a href="#" class="w3-bar-item w3-button w3-white w3-right"><img src="https://image.pitchbook.com/qhLA5b0aKQsI36nnjNRhAKoF9vO1488365116407_200x200" height ="50" alt="Technical Assistance Report">
+            </a> 
+                 
+          
+  </div>
+ 
+
+<!-- Navbar on small screens -->
+<div id="navDemo" class="w3-bar-block w3-black w3-hide w3-hide-large w3-hide-medium w3-top" style="margin-top:46px">
+   <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+    <a  asp-area="" asp-controller="Home" asp-action="Index" class="w3-bar-item w3-button w3-padding-large">Technical Assistance Report </a>
+    <a  asp-area="" asp-controller="Home" asp-action="Index" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Home</a>
+    <a  asp-area="" asp-controller="Home" asp-action="About" class="w3-bar-item w3-button w3-padding-large w3-hide-small">About</a>
+    <a  asp-area="" asp-controller="Home" asp-action="Contact" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Contact Us</a> 
+    <a  asp-area="" asp-controller="Home" asp-action="Logout"  class="w3-bar-item w3-button w3-padding-large w3-hide-small" >Logout</a>
+                     <a href="#" class="w3-bar-item w3-button w3-white w3-right"><img src="https://image.pitchbook.com/qhLA5b0aKQsI36nnjNRhAKoF9vO1488365116407_200x200" height ="50" alt="Technical Assistance Report">
+            </a> 
+                 
+</div>
+        
+    <!-- Sidebar/menu -->
+    <nav class="w3-sidebar w3-border   w3-yellow w3-collapse w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar">
+        <br>
+        <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
+    <div class="w3-container">
+        <h3 class="w3-padding-64">
+            <b>
+                @{
+                    User message = (TempData["User"] as User); // might throw a NullReferenceException
+                }
+                @message.user_name's Profile
+            </b>
+        </h3>
+    </div> 
+        <div class="w3-bar-block">
+                 <a onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white" asp-area="" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
+          
+            <a onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white" asp-area="" asp-controller="Customer" asp-action="createCustomer">Create a Customer</a>
+            <a onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white" asp-area="" asp-controller="Customer" asp-action="Index">View All Customers</a>
+            <a onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white" asp-area="" asp-controller="User" asp-action="createUser">Create a User</a>
+                          <a onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white" asp-area="" asp-controller="User" asp-action="createDeveloper">Create a Developer</a>
+            <a onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white" asp-area="" asp-controller="User" asp-action="Index">View All Users</a> 
+            <a onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white" asp-area="" asp-controller="Problem" asp-action="viewStatus">View Logged Tickets(Admin)</a>
+          <a onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white" asp-area="" asp-controller="User" asp-action="UpdateProfile">Update Profile</a>
+        </div>  
+    </nav>
+    </div>    
+   
+
+    
+    <!-- !PAGE CONTENT! -->
+    <div class="w3-main" style="margin-left:340px;margin-right:40px">
+        <!-- Services -->
+        <div class="w3-container" id="#" style="margin-top:75px">
+            <h2 class="w3-xxlarge w3-text-yellow">
+                View Tickets
+            </h2>
+            <hr />
+
+            <hr style="width:50px;border:5px solid yellow" class="w3-round">
+
+            @using (Html.BeginForm())
+            {
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="input-group" id="adv-search">
+                                @Html.TextBox("searchString", ViewBag.CurrentFilter as string, "", new { placeholder = "Search the problems...", @class = "form-control" })
+                                <div class="input-group-btn">
+                                    <div class="btn-group" role="group">
+                                        <div class="dropdown dropdown-lg">
+                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+                                            <div class="dropdown-menu dropdown-menu-right" role="menu" id="menu">
+                                                <form class="form-horizontal" role="form" asp-action="ViewStatus" method="post">
+                                                    <div class="form-group">
+                                                        <label for="contain" class="control-label left-label col-xs-12 col-sm-12 col-md-3">Status</label>
+                                                        <select class="form-control" id="status" name="status">
+                                                            <option value="0" selected>All Bugs</option>
+                                                            <option value="1">New</option>
+                                                            <option value="2">In Progress</option>
+                                                            <option value="4">On Hold</option>
+                                                            <option value="5">Resolved</option>
+                                                            <option value="6">Cancelled</option>
+                                                            <option value="3">Complete</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="contain" class="control-label left-label col-xs-12 col-sm-12 col-md-3">Module</label>
+                                                        <select class="form-control">
+                                                            <option value="0" selected>Default modules</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="contain" class="control-label left-label col-xs-12 col-sm-12 col-md-3">Filter By Day</label>
+                                                        <select class="form-control" id="filter" name="filter">
+                                                            <option value="0" selected>All</option>
+                                                            <option value="day">Previous Day</option>
+                                                            <option value="week">Previous Week</option>
+                                                            <option value="month">Previous Month</option>
+                                                            <option value="year">Previous Year</option>
+                                                        </select>
+                                                    </div>
+                                                    @*<div class="form-group">
+                                                            <label for="contain" class="control-label left-label col-xs-12 col-sm-12 col-md-3">Custom Date Filter</label>
+                                                            <input id="date1" name="FirstDate" class="form-control col-sm-12 col-md-3" type="date">
+                                                            <input id="date2" name="SecondDate" class="form-control col-sm-12 col-md-3" type="date">
+                                                        </div>*@
+                                                    <div class="form-group">
+                                                        <label class="control-label left-label col-xs-12 col-sm-12 col-md-3">Developers</label>
+                                                        <select name="Developer_Name" class="form-control" asp-items="@(new SelectList(@ViewBag.ListofDevelopers, "Name"))">
+                                                            <option disabled selected>--- SELECT ---</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="contain" class="control-label left-label col-xs-12 col-sm-12 col-md-3">Customer</label>
+                                                        <select name="Customer_Name" class="form-control" asp-items="@(new SelectList(@ViewBag.ListofCustomer, "Name"))">
+                                                            <option disabled selected>--- SELECT ---</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group" style="margin-top: 50px;">
+                                                        <button type="submit" value="search" class="btn btn-primary control-label left-label col-xs-12 col-sm-12 col-md-3 form-control">Search</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <button type="submit" value="search" class="btn btn-primary" > Search </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            }
+            <hr>
+
+            <div class="w3-row" style="overflow-x:auto;">
+                <table class="w3-table w3-striped w3-bordered">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.ActionLink("Ticket_Number", "ViewStatus", new { sortOrder = ViewBag.Ticket_Number })
+
+                            </th>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.Problem_Desc)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Summary)
+                            </th>
+                            <th>
+                                @Html.ActionLink("Severity", "ViewStatus", new { sortOrder = ViewBag.Severity })
+                            </th>
+                            <th>
+                                @Html.ActionLink("Create Date", "ViewStatus", new { sortOrder = ViewBag.Create_Date })
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Last_Update_Date)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Status_Name)
+                            </th>
+                            <th>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Ticket_Number)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Problem_Desc)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Summary)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Severity)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Create_Date)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Last_Update_Date)
+                                </td>
+                                <td> 
+                                    @Html.DisplayFor(modelItem => item.Status_Name)
+                                </td>
+                                <td>
+                                    @using (Html.BeginForm("TicketInfo", "Problem"))
+                                    {
+                                        <input name="assign" id="@item.Ticket_Number" class="btn btn-primary" type="submit" value="Details of #@item.Ticket_Number" />
+                                        <input name="assign" type="hidden" value="@item.Ticket_Number" />
+                                    }
+                                </td>
+
+                                @if (item.Status_Name == "New")
+                                {
+                                    <td>
+                                        @using (Html.BeginForm("Assign", "Problem"))
+                                        {
+                                            <input name="assign" id="@item.Ticket_Number" class="btn btn-primary" type="submit" value="Assign #@item.Ticket_Number" />
+                                            <input name="assign" type="hidden" value="@item.Ticket_Number" />
+                                        }
+                                    </td>
+
+                                }
+                                else
+                                {
+                                    <td style="color:green;">Already Assigned</td>
+                                }
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+      
+        
+
+
+    <hr />
+        <footer>
+            <div class="w3-container w3-padding-2 w3-center w3-opacity  w3-large">
+                <p>Copyright &copy; N3N,Inc 2017</p>
+            </div>   
+        </footer> 
+      
+        
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+       
+        
+        
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+
+ 
+
+        <script type="text/javascript">
+            $('#menu').on('click',
+                function (e) {
+                    e.stopPropagation();
+                });
+        </script>
+</body>
+</html> 

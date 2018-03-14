@@ -1,0 +1,71 @@
+﻿@model BugReportMVC5.Models.User
+ @{
+ ViewData["Title"]="Home"; 
+} 
+     
+            <!-- !PAGE CONTENT! -->
+ <div class="contents" style="margin-top:5%;">  
+    <div class="container-fluid" style="margin:0 auto;font-family: OmnesATTII;">
+  
+                  <div class="title title-container">
+                    <div class="tar-logo"></div>    
+                    <div class="s-ti">  <span >Technical Assistance Report</span> </div>
+                    <div class="sub"> <span>A Place to find solutions for all your issues</span> </div>
+                </div>  
+           
+      
+   <div class="card card-container">
+                    <div class="title-bar">
+                        <span style="font-family: OmnesATTII;">Welcome! Please Login.</span>
+                    </div>  
+
+                    <p id="profile-name" class="profile-name-card"></p>
+                    <p id="profile-name" class="profile-name-card"></p>
+                    <form class="form-signin"  method="post" asp-controller="Home" asp-action="Login">
+                        <span id="reauth-email" class="reauth-email"></span>
+                        <span>User Name</span>
+                  
+                        <input type="text"  class="form-control" name="user_name"  id="user_name" required="" autofocus="">
+                  
+
+
+              
+                        <span>Password</span>
+                        <input type="password" asp-for="password"  id="inputPassword" class="form-control" required="">
+
+                         
+                
+                        <div id="remember" class="checkbox">
+                            <label>
+                                 <input type="checkbox" value="remember-me"> Remember me
+                            </label>
+                        </div>
+                           
+                        <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Log in</button>
+
+                <span style="color:red;font-size:9px">Note:Kindly refer to the About Section before creating a Ticket.</span>
+                    </form><!-- /form -->  
+                                     @if (!ViewData.ModelState.IsValid)
+{
+      <div class=" text-center" style="color:red;font-family: OmnesATTII;">@Html.ValidationMessage("Error")</div> 
+}
+  
+         
+                </div>
+                 
+
+                  <div class="footer title-container" style="padding:0 0;">
+                        <span style="font-family: OmnesATTII;">&copy;N3N 2018</span>
+                  </div> 
+                     
+        
+     </div> 
+        </div>
+                      <div class="logo">
+                             <img src="/img/logo.png">
+                    </div> 
+
+         
+
+           
+

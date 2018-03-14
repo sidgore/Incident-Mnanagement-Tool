@@ -1,0 +1,85 @@
+﻿@model BugReportMVC5.Models.User
+
+
+@{
+ViewData["Title"]="Update Admin Profile";
+Layout = "_customerDashboardLayout"; }  
+
+        
+               <div  style="margin-left:2%;font-family: OmnesATTII;" >
+    <h3>
+       
+            @{
+                    User message = (TempData["User"] as User); // might throw a NullReferenceException
+                }
+             <img src="~/img/update1.svg"/> <span style="color: #545b70; font-weight: 500;font-family: OmnesATTII;font-size: 20px;padding-left:7px;">Update @message.user_name's Profile </span>
+    </h3>  
+</div>  
+  
+
+
+
+
+
+
+ <div class="outer-add-customer" style="margin-left:2%;padding:7px;width:96%;font-family: OmnesATTII;"> 
+
+
+
+
+
+
+       
+
+            <form role="form" class="w3-container " method="post" asp-controller="User" asp-action="updateProfile"> 
+
+              <div class="form-group">
+           
+
+            
+    <label for="user_name" style="float: left;padding-top: 7px;font-size: 16px;width:10% ;  font-family: OmnesATTII;font-weight: 500;color: #7f8fa4;">User Name</label>
+    <input type="text" class="w3-input w3-border" name="user_name" value="@message.user_name" id="user_name" style="width: 90%;height: 80%;margin-left: 15px;" readonly="" />
+            
+   
+
+    </div>
+
+              <div class="form-group">
+    <label  for="email" style="float: left;padding-top: 7px;font-size: 16px;width:10%;font-family: OmnesATTII;font-weight: 500;color: #7f8fa4;">Email address</label>
+    <input type="email" class="w3-input w3-border" name="email" value="@message.email" id="email" style="width: 90%;height: 80%;margin-left: 15px;">
+
+            </div>
+        
+ 
+  <div class="form-group">
+    <label for="password" style="float: left;padding-top: 7px;font-size: 16px;width:10%;font-family: OmnesATTII;font-weight: 500;color: #7f8fa4;">Password</label>
+    <input type="password" class="w3-input w3-border" name="password" value="@message.password" id="password" style="width: 90%;height: 80%;margin-left: 15px;" required="">
+
+   </div>  
+          <div class="form-group">
+    <label for="confirmpassword" style="float: left;padding-top: 7px;font-size: 16px;width:10%;font-family: OmnesATTII;font-weight: 500;color: #7f8fa4;">Confirm Password</label>
+    <input type="password" class="w3-input w3-border" name="confirmpassword" value="@message.password" id="confirmpassword" style="width: 90%;height: 80%;margin-left: 15px;">
+
+   </div>  
+     
+     
+   <div class="form-group">
+    <button type="submit" onclick="return Validate()" class="w3-button w3-green w3-round" style="float: right;background-image: linear-gradient(to bottom, #39b54a, #33aa44);font-size: 14px;font-family: OmnesATTII;font-size: 14px;color: #ffffff;">Update</button>
+    </div>  
+            </form>
+                
+
+    <div class=" w3-container text-center" style="color:red;">@TempData["Errors"]</div>
+</div>
+
+<script type="text/javascript">
+    function Validate() {
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirmpassword").value;
+        if (password != confirmPassword) {
+            alert("Passwords do not match.");
+            return false;
+        }
+        return true;
+    }
+</script>

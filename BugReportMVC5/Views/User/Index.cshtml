@@ -1,0 +1,96 @@
+﻿@model IEnumerable<BugReportMVC5.Models.User>
+
+    @{ ViewData["Title"]="View All Users"; Layout = "_adminDashboardLayout"; }
+
+
+
+
+ <div  style="margin-left:2%;font-family: OmnesATTII;" >
+        <h3>
+            
+             <img src="~/img/admin/users.svg"/>   <span style="color: #545b70; font-weight: 500;font-family: OmnesATTII;font-size: 20px;">View All Users </span>   
+        </h3>
+    </div>
+
+
+  <div class="w3-white w3-round" style="width: 96%;margin-left:2%; margin-right:2%;font-family: OmnesATTII;"> 
+
+
+
+
+
+       <table class="w3-table w3-centered w3-hoverable" style="padding:3px;font-family: OmnesATTII;">
+             <thead style="border-bottom: 1px solid;border-color:#e7e9ed;opacity: 0.7;">  
+                  <tr style="background-color: #f5f8fa;color: #7f8fa4;">
+                    <th>
+                        @Html.DisplayNameFor(model => model.user_id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.user_name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.email)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.phone_number)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.customer_id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.role_id)
+                    </th>
+                <th>
+
+                </th>
+               
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model) {
+                <tr style="border-bottom:1px solid;border-color:#e7e9ed;font-family: OmnesATTII;">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.user_id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.user_name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.phone_number)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.customer_id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.role_id)
+                    </td>
+              
+             @if(item.user_name.ToString()!="admin")
+                 { <td>
+                     <form method="post" asp-action="deleteUser">
+            
+                   
+                      @Html.Hidden("User_id", @item.user_id)
+                    <input type="submit" name="User_id"  class="w3-button w3-round" onclick="return confirm('Are you sure you want to delete this item?');" value="Delete User" style="float:right;background-image: linear-gradient(to bottom, #39b54a, #33aa44);color:#ffffff"/>
+           
+             </form>
+                </td>}
+                else{<td></td>}
+
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+
+     <div style="margin-top:8px;margin-right:1%;font-family: OmnesATTII;">   
+        <a class="w3-button" style="float:right;margin-right:15px;border-radius: 5px;background-image: linear-gradient(to bottom, #39b54a, #33aa44);color:#ffffff" asp-action="createUser">Create New User</a>
+    
+
+    </div>

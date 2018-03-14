@@ -1,0 +1,167 @@
+﻿ @using Newtonsoft.Json; 
+@{
+var yList = (ViewBag.ListofTableByStatus as IEnumerable<ViewStatus>).Select(x => x.count).ToArray();
+var xList= (ViewBag.ListofTableByStatus as IEnumerable<ViewStatus>).Select(x => x.Status_name).ToList<String>(); 
+} 
+@{
+var yList2 = (ViewBag.ListByCustomers as IEnumerable<ViewStatusByCustomer>).Select(x => x.count).ToArray();
+var xList2= (ViewBag.ListByCustomers as IEnumerable<ViewStatusByCustomer>).Select(x => x.Customer_name).ToList<String>(); 
+}
+
+
+  
+
+ <div style="margin-left:2%;font-family: OmnesATTII;">
+
+                        <div id="chartContainer1" style="width: 49%; height: 300px;display: inline-block;font-family: OmnesATTII;"></div>
+                        <div id="chartContainer2" style="width: 49%; height: 300px;display: inline-block;font-family: OmnesATTII;"></div>
+    </div>
+                      
+
+                         
+          <!--            <div id="chart_div" style="width: 45%; height: 300px;display: inline-block;"></div> 
+
+                            <div id="column_chart" style="width: 45%; height: 300px;display: inline-block;"></div> 
+-->
+
+                         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+
+      // Load the Visualization API and the corechart package.
+      google.charts.load('current', {'packages':['corechart']});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.charts.setOnLoadCallback(drawChart);
+
+      // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+
+       var Ylist = @Html.Raw(JsonConvert.SerializeObject(@yList));
+                            var Xlist = @Html.Raw(JsonConvert.SerializeObject(@xList));
+                              
+    var Ylist2 = @Html.Raw(JsonConvert.SerializeObject(@yList2));
+                            var Xlist2 = @Html.Raw(JsonConvert.SerializeObject(@xList2));
+                              
+    
+    
+
+         var myDATA = [new Array('Status', 'Count')];
+     var myDATA2= [new Array('Customer', 'Count')];
+    
+two1dto2d(myDATA, Xlist, Ylist);
+
+  two1dto2d(myDATA2, Xlist2, Ylist2);
+   
+     
+function two1dto2d(c, a, b) {
+  for (var i = 0; i < a.length; i++) {
+    c.push([a[i], b[i]]);
+  }
+}
+
+    
+    
+    
+      function drawChart() { 
+
+        // Create the data table. 
+       var data = google.visualization.arrayToDataTable(myDATA,  false); // 'false' means that the first row contains labels, not data.
+           var data2 = google.visualization.arrayToDataTable(myDATA2,  false); // 'false' means that the first row contains labels, not data.
+      
+        // Set chart options
+        var options = {'title':'Total Number of Tickets -Status Wise'};
+         
+     var options2 = {'title':'Total Number of Tickets -Customer Wise'};
+
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart1 = new google.visualization.PieChart(document.getElementById('chart_div'));
+     var chart2 = new google.visualization.ColumnChart(document.getElementById('column_chart'));
+    
+        chart1.draw(data, options); 
+     chart2.draw(data2, options2);
+      }
+    
+    </script>
+     
+
+
+                      
+
+
+
+                        <script type="text/javascript">
+                            var Ylist = @Html.Raw(JsonConvert.SerializeObject(@yList));
+                            var Xlist = @Html.Raw(JsonConvert.SerializeObject(@xList));
+                            var dataPoints = new Array();
+                            for (i = 0; i < Ylist.length; i++) {
+                                dataPoints.push({
+                                    y: Ylist[i],
+                                    label: Xlist[i]
+                                });
+
+                            }
+
+
+
+
+
+                            var Ylist2 = @Html.Raw(JsonConvert.SerializeObject(@yList2));
+                            var Xlist2 = @Html.Raw(JsonConvert.SerializeObject(@xList2));
+                            var dataPoints2 = new Array();
+                            for (i = 0; i < Ylist2.length; i++) {
+                                dataPoints2.push({
+                                    y: Ylist2[i],
+                                    label: Xlist2[i]
+                                });
+
+                            }
+
+
+
+
+                            window.onload = function () {
+
+
+                                var chart1 = new CanvasJS.Chart("chartContainer1", {
+                                    theme: "theme2",
+                                    animationEnabled: true,
+                                    title: {
+                                        text: "Total Number of Tickets"
+                                    },
+                                    subtitles: [{
+                                        text: " Status Wise"
+                                    }],
+                                    data: [{
+                                        type: "pie", //change type to bar, line, area, pie, etc
+                                        dataPoints: dataPoints
+
+
+
+                                    }]
+                                });
+
+                                 
+                                var chart2 = new CanvasJS.Chart("chartContainer2", {
+                                    theme: "theme2",
+                                    animationEnabled: true,
+                                    title: {
+                                        text: "Total Number of Tickets"
+                                    },
+
+                                    subtitles: [{
+                                        text: " By Customers"
+                                     }],
+                                    data: [{
+                                        type: "column", //change type to bar, line, area, pie, etc
+                                        dataPoints: dataPoints2
+
+
+
+                                    }]
+                                });
+                                chart1.render();
+                                chart2.render();
+                            };
+                        </script>

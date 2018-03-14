@@ -1,0 +1,211 @@
+﻿@model IEnumerable<BugReportMVC5.Models.Problem>
+@{
+ViewData["Title"]="Ticket Information";
+Layout = "_userDashboardLayout"; }
+
+ <div  style="margin-left:2%;font-family: OmnesATTII;" >
+    <h3>
+         @{ User message = (TempData["User"] as User); }
+             <img src="~/img/admin/developer.svg"/>  <span style="color: #545b70; font-weight: 500;font-family: OmnesATTII;font-size: 20px;padding-left:7px;">Ticket Information </span> 
+    </h3>
+</div>
+
+
+  
+ <div class="w3-white" style="width: 96%;margin-left:2%; margin-right:2%;font-family: OmnesATTII;">  
+ 
+
+          <div class="Ticket-container" style="margin-left:2%;padding:3px;font-family: OmnesATTII;"> 
+
+        @foreach (var item in Model) {
+        <div>
+            <h3 id="Siddharth">Ticket Number: #@Html.DisplayFor(modelItem => item.Ticket_Number)</h3>
+            <h5>Summary: @Html.DisplayFor(modelItem => item.Summary)</h5>
+            <h5>Severity: @Html.DisplayFor(modelItem => item.Severity)</h5>
+            <h5>Current Status: @ViewBag.CurrentStatus</h5>
+            <h5>Description: @Html.DisplayFor(modelItem => item.Problem_Desc)</h5>
+            @if(@ViewBag.CurrentStatus != "Complete") {
+            <h5>Estimated Complete Date: @ViewBag.EstimatedCompleteDate</h5>
+            }
+            <h5>Assigned To: @ViewBag.DeveloperName</h5>
+            <input name="user_id" type="hidden" value="@item.User_Id" />
+        </div>
+
+        }
+    </div>
+</div>
+
+
+ <div style="margin-top:8px;font-family: OmnesATTII;">    
+      <a class="w3-button w3-blue w3-round"  style="float:right;margin-right:2%;width: 10%;background-color: #27a2ff;color: #ffffff;font-family: OmnesATTII;" asp-action="viewStatusUser"><img src="~/img/back.svg"/><span style="float: right;">Back to List</span></a> 
+</div>
+      <br>
+
+
+
+
+
+   <!-- Upload Files Section-->
+
+     <div  style="margin-left:2%;font-family: OmnesATTII;" >
+    <h3>
+          
+            <img src="~/img/upload.svg"/> <span style="color: #545b70; font-weight: 500;font-family: OmnesATTII;font-size: 20px;padding-left:7px;">Uploaded Files </span>    
+    </h3>
+</div>   
+
+
+
+
+ <div class="w3-white" style="width: 96%;margin-left:2%; margin-right:2%;font-family: OmnesATTII;">  
+
+    <div class="Ticket-container" style="padding:3px;width:40%;display: inline-block;font-family: OmnesATTII; ">
+
+
+       
+        <form method="post" class="  w3-border w3-center w3-round " enctype="multipart/form-data" asp-controller="UploadFiles" asp-action="Index">
+            <p>Upload one or more Attachments:</p>
+
+            <div class=" form-group" style="align:middle">
+            <input name="tt" type="hidden" value="@Model.First().Ticket_Number" />
+            <input class="w3-btn w3-center w3-round" type="file" name="files" multiple />
+
+            </div>  
+            <div class="w3-center">
+            <button class="w3-btn  w3-center w3-round" type="submit" style="background-image: linear-gradient(to bottom, #39b54a, #33aa44);color: #ffffff;font-family: OmnesATTII;">Upload</button>
+            </div>
+        </form>
+      
+
+    </div>
+    <div class="Ticket-container" align="left" style="padding:1px;width:49%;display: inline-block; vertical-align:top ">
+
+
+
+
+        <ul>
+            @foreach (var item in ViewBag.ListOfFiles) {
+            <li>
+              <img src="~/img/filetype.svg"/>
+               <span style="color: #0093ee;"> @item.Name </span>
+           
+
+            </li>
+            }
+        </ul>
+    </div>
+</div>
+
+
+     <div  style="margin-left:2%;font-family: OmnesATTII;" >
+    <h3>
+          
+            <img src="~/img/conversations.svg"/> <span style="color: #545b70; font-weight: 500;font-family: OmnesATTII;font-size: 20px;padding-left:7px;">Conversations </span>    
+    </h3>
+</div>   
+
+
+
+   
+    
+   
+ 
+    
+
+    
+        <!-- The conversation view for the specific ticket-->
+ 
+                        <div class="w3-white w3-round" style="width: 96%;margin-left:2%; margin-right:2%;">       
+                        @foreach (var item in ViewBag.AllComments) 
+                        {  
+     <div class="Ticket-container w3-round" style="padding-left:2%;padding-right:1%;border-bottom: 1px solid;border-color:#e7e9ed;">    
+                
+                            @if(@item.user_name.ToString().Equals("admin"))
+                         {
+                        <fieldset class="w3-white"> 
+
+              <h5 >  <img src="/img/adminpic.svg" height="12px;" align="left"/>
+                  <span style="padding-left:3px;color: #d65b4a;font-family: OmnesATTII;font-size: 18px; font-weight: 500; letter-spacing: -0.3px;">@item.user_name Notes</span>
+                                  </h5>          
+                                        <h5 align="right" class="w3-medium">@item.comment_date</h5>
+                                        <h5>@item.description</h5>
+                           </fieldset>                                   
+                             
+                             }
+
+    else { 
+
+                            <fieldset>
+           
+                                <h5 >  <img src="/img/userpic.svg" height="12px;" align="left"/>
+            <span style="padding-left:3px;color: #e79d33;font-family: OmnesATTII;font-size: 18px; font-weight: 500; letter-spacing: -0.3px;">@item.user_name</span>
+            </h5>
+                                <h5 align="right" class="w3-medium">@item.comment_date</h5>
+                                <h5>@item.description</h5>
+                            </fieldset>
+                                
+    }
+     
+          </div>
+            
+                 
+                        } 
+
+  
+                       
+  
+
+     <div class="w3-row" style="padding-left:1%;padding-right:1%;padding-bottom:1%;padding-top:1%;">
+                          
+
+         @if (@ViewBag.StatusId != 3)
+                        {  
+                            using (Html.BeginForm("TicketComment", "Problem"))
+                             {
+       <input  class="form-control" style="float:left;width: 88%;margin-left: 1%;" name="Comment" required=""/>  
+                                
+                                 @Html.Hidden("User_Name", @message.user_name)
+                                
+                              
+
+     <input name="assign" class="w3-button w3-green w3-round" style="float: right; width:10%;background-image: linear-gradient(to bottom, #39b54a, #33aa44);text-align: center;color: #ffffff;font-family: OmnesATTII;"  type="submit" value="Add Comment" />
+           
+                  }
+                        }
+                        else 
+                        {
+                            <label class="form-group control-label left-label col-xs-3 col-sm-3 col-md-3 w3-small w3-text-blue">Ticket already completed</label>
+                        }
+           
+          </div>
+
+
+           
+
+    
+</div>
+          
+
+           <div class="Ticket-container w3-round" style="padding-left:2%;padding-right:1%;border-bottom: 1px solid;border-color:#e7e9ed;"> 
+                        @using (Html.BeginForm("ChangeStatusController", "Problem"))
+                        {
+                            if (ViewBag.StatusId == 5)
+                             {
+                                 <input name="decideSolution" class="btn btn-success w3-green" type="submit" value="Accept"/>
+                                 <input name="decideSolution" class="btn btn-danger wr-red" type="submit" value="Reject"/>
+                             }
+                             else if (ViewBag.StatusId == 6 || ViewBag.StatusId == 4)
+                             {
+                                 <input name="decideSolution" class="btn btn-warning" type="submit" value="Reopen" />
+                             }
+                        }
+
+    </div>
+      
+    
+         <script type="text/javascript">
+                $('#menu').on('click',function (e) { e.stopPropagation(); });
+
+                    
+        
+            </script>

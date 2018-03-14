@@ -1,0 +1,194 @@
+﻿@model IEnumerable<BugReportMVC5.Models.Knowledge>
+
+@{
+    ViewData["Title"] = "Landing";
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="https://getbootstrap.com/favicon.ico">
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+    <style>
+        body,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            font-family: "Poppins", sans-serif
+        }
+
+        body {
+            font-size: 16px;
+        }
+
+        .w3-half img {
+            margin-bottom: -6px;
+            margin-top: 16px;
+            opacity: 0.8;
+            cursor: pointer
+        }
+
+            .w3-half img:hover {
+                opacity: 1
+            }
+    </style>
+    <!-- Bootstrap core CSS -->
+    <link href="https://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="https://getbootstrap.com/docs/4.0/examples/dashboard/dashboard.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Sidebar/menu -->
+    <nav class="w3-sidebar w3-border   w3-blue w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar">
+        <br>
+        <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
+        <div class="w3-container">
+            <h3 class="w3-padding-64">
+                <b>
+                    Admin's
+                    <br>Profile
+                </b>
+            </h3>
+        </div>
+        <div class="w3-bar-block">
+            <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
+            <a onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white" asp-area="" asp-controller="Customer" asp-action="createCustomer">Create a Customer</a>
+            <a onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white" asp-area="" asp-controller="Customer" asp-action="Index">UsersCustomers</a>
+            <a onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white" asp-area="" asp-controller="User" asp-action="createUser">Create a User</a>
+            <a onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white" asp-area="" asp-controller="User" asp-action="Index">Users</a>
+            <a onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white" asp-area="" asp-controller="Problem" asp-action="viewStatus">View Logged Tickets</a>
+                         <a href="#" class="w3-bar-item w3-button w3-white w3-right"><img src="https://image.pitchbook.com/qhLA5b0aKQsI36nnjNRhAKoF9vO1488365116407_200x200" height ="50" alt="Technical Assistance Report">
+            </a> 
+                 
+        </div>
+            
+    </nav>
+    <!-- Top menu on small screens -->
+    <header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
+        <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
+        <span>
+            Admin's Profile
+        </span>
+    </header>
+    <!-- Overlay effect when opening sidebar on small screens -->
+    <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+    <!-- !PAGE CONTENT! -->
+    <div class="w3-main" style="margin-left:340px;margin-right:40px">
+
+        <!-- Services -->
+        <div class="w3-container" id="#" style="margin-top:75px">
+            <h2 class="w3-xxlarge w3-text-blue">
+                Search for Previous Bugs
+            </h2>
+            <hr />
+
+            <hr style="width:50px;border:5px solid #007bff" class="w3-round">
+            <form role="form" class="form-vertical">
+                @using (Html.BeginForm())
+            {
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="input-group" id="adv-search">
+                                    @Html.TextBox("searchString", ViewBag.CurrentFilter as string, "", new { placeholder = "Search for FAQ's...", @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </form>
+            <hr>
+            <table class="table">
+               
+                @*@if (Model != null)
+                {
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.solution)
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.solution)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                }*@
+                else
+                {
+                    @using (Html.BeginForm("Index", "Problem"))
+                    {
+                        <button type="submit" value="search" class="btn btn-primary" style="background-color: #007bff;"> Report a Bug! </button>
+                    }
+                }
+                    
+        </table>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Technical Assistance Report</a>
+        <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
+                        Home
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="About">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
+                </li>
+            </ul>
+           
+
+
+            <form class="form-inline mt-2 mt-md-0">
+                <button class="btn btn-outline-success my-2 my-sm-0" style="float:right;" asp-controller="Home" asp-action="Logout" type="submit">Logout</button>
+ 
+            </form>
+        </div>
+    </nav>
+
+    <div class="w3-container" style="margin-top:75px">
+        <hr />
+        <footer>
+            <div class="container text-center">
+                <p>&copy; N3N,Inc 2017</p>
+            </div>
+        </footer>
+    </div>
+    <!-- Bootstrap core JavaScript
+              ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
+</body>
+</html>

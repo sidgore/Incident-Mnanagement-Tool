@@ -1,0 +1,57 @@
+﻿  @using Newtonsoft.Json; 
+   
+   @{
+ var yList = (ViewBag.ListByCustomerTickets as IEnumerable<ViewStatus>).Select(x => x.count).ToArray();
+
+ var xList= (ViewBag.ListByCustomerTickets as IEnumerable<ViewStatus>).Select(x => x.Status_name).ToArray();
+
+ }      
+   
+
+    
+
+
+
+<div class="w3-round" id="chartContainer1" style="width: 96%;margin-left:2%; margin-right:2%;height:300px;font-family: OmnesATTII;"></div>   
+                            
+
+<script type="text/javascript">
+
+var Ylist = @Html.Raw(JsonConvert.SerializeObject(@yList)) ;  
+  var Xlist = @Html.Raw(JsonConvert.SerializeObject(@xList)) ; 
+           var dataPoints=new Array();
+for(i=0;i<Ylist.length;i++)
+    {
+     dataPoints.push({y : Ylist[i],label:Xlist[i]});       
+
+        } 
+     
+    window.onload = function () { 
+
+       
+        var chart = new CanvasJS.Chart("chartContainer1", { 
+            theme: "theme2",    
+            animationEnabled: true, 
+            title: {
+                text: "Total Number of Tickets"  
+            },  
+            subtitles: [ 
+                { text: " Status Wise" } 
+            ],    
+            data: [  
+            { 
+                type: "column",  //change type to bar, line, area, pie, etc
+                dataPoints: dataPoints 
+   
+                                         
+                                
+            }         
+            ]  
+        }); 
+        chart.render();
+    };   
+     
+      
+    
+</script> 
+    

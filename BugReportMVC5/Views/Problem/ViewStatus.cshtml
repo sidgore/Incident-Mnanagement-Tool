@@ -1,0 +1,215 @@
+﻿@model IEnumerable<BugReportMVC5.Models.Problem>
+
+@{
+ViewData["Title"]="View Logged Tickets";
+Layout = "_adminDashboardLayout"; 
+}   
+
+ <div  style="margin-left:2%;font-family: OmnesATTII;" >
+    <h3>
+       
+             <img src="~/img/admin/developer.svg"/>   <span style="color: #545b70; font-weight: 500;font-family: OmnesATTII;font-size: 20px;padding-left:7px;">View All Tickets </span> 
+    </h3>
+</div>   
+
+   
+
+<div class="w3-row-padding w3-margin-bottom">  
+
+
+   
+   
+  
+
+            @using (Html.BeginForm())
+            {
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="input-group" id="adv-search">
+                                @Html.TextBox("searchString", ViewBag.CurrentFilter as string, "", new { placeholder = "Search the problems...", @class = "form-control" })
+                                <div class="input-group-btn">
+                                    <div class="btn-group" role="group">
+                                        <div class="dropdown dropdown-lg">
+                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+                                            <div class="dropdown-menu dropdown-menu-right" role="menu" id="menu">
+                                                <form class="form-horizontal" role="form" asp-action="ViewStatus" method="post">
+                                                    <div class="form-group">
+                                                        <label for="contain" class="control-label left-label col-xs-12 col-sm-12 col-md-3">Status</label>
+                                                        <select class="form-control" id="status" name="status">
+                                                            <option value="0" selected>All Bugs</option>
+                                                            <option value="1">New</option>
+                                                            <option value="2">In Progress</option>
+                                                            <option value="4">On Hold</option>
+                                                            <option value="5">Resolved</option>
+                                                            <option value="6">Cancelled</option>
+                                                            <option value="3">Complete</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="contain" class="control-label left-label col-xs-12 col-sm-12 col-md-3">Module</label>
+                                                        <select class="form-control">
+                                                            <option value="0" selected>Default modules</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="contain" class="control-label left-label col-xs-12 col-sm-12 col-md-3">Filter By Day</label>
+                                                        <select class="form-control" id="filter" name="filter">
+                                                            <option value="0" selected>All</option>
+                                                            <option value="day">Previous Day</option>
+                                                            <option value="week">Previous Week</option>
+                                                            <option value="month">Previous Month</option>
+                                                            <option value="year">Previous Year</option>
+                                                        </select>
+                                                    </div>
+                                                    @*<div class="form-group">
+                                                            <label for="contain" class="control-label left-label col-xs-12 col-sm-12 col-md-3">Custom Date Filter</label>
+                                                            <input id="date1" name="FirstDate" class="form-control col-sm-12 col-md-3" type="date">
+                                                            <input id="date2" name="SecondDate" class="form-control col-sm-12 col-md-3" type="date">
+                                                        </div>*@
+                                                    <div class="form-group">
+                                                        <label class="control-label left-label col-xs-12 col-sm-12 col-md-3">Developers</label>
+                                                        <select name="Developer_Name" class="form-control" asp-items="@(new SelectList(@ViewBag.ListofDevelopers, "Name"))">
+                                                            <option disabled selected>--- SELECT ---</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="contain" class="control-label left-label col-xs-12 col-sm-12 col-md-3">Customer</label>
+                                                        <select name="Customer_Name" class="form-control" asp-items="@(new SelectList(@ViewBag.ListofCustomer, "Name"))">
+                                                            <option disabled selected>--- SELECT ---</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group" style="margin-top: 50px;">
+                                                        <button type="submit" value="search" class="btn btn-primary w3-blue control-label left-label col-xs-12 col-sm-12 col-md-3 form-control" style="background-color: #27a2ff;color: #ffffff;">Search</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <button type="submit" value="search" class="btn btn-primary" style="background-color: #27a2ff;color: #ffffff;font-family: OmnesATTII;"> Search </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+
+            }
+      <br>
+             
+        <div class="w3-white w3-round" style="margin-left:2%;width:96%; margin-right:2%;font-family: OmnesATTII;">   
+            <table class="w3-table w3-centered w3-hoverable" style="padding:3px;font-family: OmnesATTII;">
+                       <thead style="border-bottom: 1px solid;border-color:#e7e9ed;opacity: 0.7;">  
+                  <tr style="background-color: #f5f8fa;color: #7f8fa4;">
+                            <th>
+                                @Html.ActionLink("Ticket_Number", "ViewStatus", new { sortOrder = ViewBag.Ticket_Number })
+
+                            </th>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.Problem_Desc)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Summary)
+                            </th>
+                            <th>
+                                @Html.ActionLink("Severity", "ViewStatus", new { sortOrder = ViewBag.Severity })
+                            </th>
+                            <th>
+                                @Html.ActionLink("Create Date", "ViewStatus", new { sortOrder = ViewBag.Create_Date })
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Last_Update_Date)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Status_Name)
+                            </th>
+                            <th>
+                            </th>
+                <th></th> 
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                           <tr style="border-bottom:1px solid;border-color:#e7e9ed;font-family: OmnesATTII;">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Ticket_Number)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Problem_Desc)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Summary)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Severity)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Create_Date)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Last_Update_Date)
+                                </td>
+                                <td> 
+                                    @Html.DisplayFor(modelItem => item.Status_Name)
+                                </td>
+                                <td>
+                                    @using (Html.BeginForm("TicketInfo", "Problem"))
+                                    {
+                                        <input name="assign" id="@item.Ticket_Number" class="btn" type="submit" value="Details of #@item.Ticket_Number" style="background-color: #27a2ff;color: #ffffff;font-family: OmnesATTII;" />
+                                        <input name="assign" type="hidden" value="@item.Ticket_Number" />
+                                    }
+                                </td>
+
+                                @if (item.Status_Name == "New")
+                                {
+                                    <td>
+                                        @using (Html.BeginForm("Assign", "Problem"))
+                                        {
+                                            <input name="assign" id="@item.Ticket_Number" class="btn " type="submit" value="Assign #@item.Ticket_Number" style="background-color: #27a2ff;color: #ffffff;font-family: OmnesATTII;"/>
+                                            <input name="assign" type="hidden" value="@item.Ticket_Number" />
+                                        }
+                                    </td>
+
+                                }
+                                else
+                                {
+                                    <td style="color: #38b349;line-height: 3.33;font-weight: 500;font-size: 15px;font-family: OmnesATTII;">Already Assigned</td>
+                                }
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+         
+       
+
+      </div>
+    </div>   
+   
+        
+       
+      
+        
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+       
+        
+        
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+
+ 
+
+        <script type="text/javascript">
+            $('#menu').on('click',
+                function (e) {
+                    e.stopPropagation();
+                });
+        </script>
+  

@@ -1,0 +1,113 @@
+﻿@model BugReportMVC5.Models.User
+
+@{
+ViewData["Title"]="Create User";
+Layout = "_adminDashboardLayout"; }  
+
+        
+
+   <div  style="margin-left:2%;font-family: OmnesATTII;" >
+    <h3>
+        
+             <img src="~/img/admin/users.svg"/><span style="padding-left:8px;color: #545b70; font-weight: 500;font-family: OmnesATTII;font-size: 20px;">Create a User </span> 
+    </h3>
+</div>  
+ <div class="outer-add-customer" style="margin-left:2%;padding:7px;width:96%;font-family: OmnesATTII;">   
+ 
+      
+    
+                 
+
+                <form role="form" class="w3-container " method="post" asp-action="createUser1">
+
+                  <div class="form-group">  
+
+    <label style="float: left;padding-top: 7px;font-size: 16px;width:11%;color: #7f8fa4;font-family: OmnesATTII;font-weight: 500; ">User Name</label>
+
+   
+    <input class="w3-input w3-border" style="width: 89%;height: 80%;" name="user_name" required="" />
+ 
+
+    </div>  
+
+    <div class="form-group">
+
+
+        <label asp-for="email" style="float: left;padding-top: 7px;font-size: 16px;width:11%;color: #7f8fa4;font-family: OmnesATTII;font-weight: 500;">Email</label>
+
+
+        <input type="email" name="email" class="w3-input w3-border" style="width: 89%;height: 80%;" required=""/>
+    
+
+    </div>
+
+    <div class="form-group">
+        <label asp-for="phone_number" style="float: left;padding-top: 7px;font-size: 16px;width:11%;color: #7f8fa4;font-family: OmnesATTII;font-weight: 500;">Phone Number</label>
+        <input  class="w3-input w3-border" style="width: 89%;height: 80%;" />
+       
+
+    </div>
+
+    <div class="form-group">
+        <label for="contain" style="float: left;padding-top: 7px;font-size: 16px;width:11%;color: #7f8fa4;font-family: OmnesATTII;font-weight: 500; ">Customer</label>
+        <select name="Customer_Name" class="w3-input w3-border" asp-items="@(new SelectList(@ViewBag.ListofCustomer, " Name "))" style="width: 89%;height: 80%; " required="">
+            <option disabled selected>--- SELECT ---</option>
+        </select>
+    </div>
+
+     <div class="form-group">
+    <label asp-for="role_id" style="float: left;padding-top: 7px;font-size: 16px;width:11%; color: #7f8fa4;font-family: OmnesATTII;font-weight: 500;" >Role Id</label>
+    <select name="role_id" class="w3-input w3-border" style="width: 89%;height: 80%;" required="">
+
+        <option value="1">User</option>
+        <option value="4">Customer Admin</option>
+
+    </select>
+    <span asp-validation-for="role_id" class="text-danger"></span>
+
+
+
+     </div>  
+
+       
+    <div class="form-group">
+        <label for="password" style="float: left;padding-top: 7px;font-size: 16px; width:11%;color: #7f8fa4;font-family: OmnesATTII;font-weight: 500;">Password</label>
+        <input name="password" type="password" class="w3-input w3-border"  id="password" style="width: 89%;height: 80%;" required=""/>
+      
+    </div>
+
+           <div class="form-group">
+        <label for="confirmpassword" style="float: left;padding-top: 7px;font-size: 16px; width:11%;color: #7f8fa4;font-family: OmnesATTII;font-weight: 500;">Confirm Password</label>
+        <input name="confirmpassword" id="confirmpassword" type="password" class="w3-input w3-border" style="width: 89%;height: 80%;" required="" />
+  
+    </div>
+  
+    <div class="form-group" >
+        <input type="submit" onclick="return Validate()"  value="Create" class="w3-button" style="float: right;margin-left: 15px; height: 80%;border-radius: 5px;background-image: linear-gradient(to bottom, #39b54a, #33aa44);color: #ffffff;width:7%;" />
+
+    </div>   
+
+</form>
+<div class=" w3-container text-center" style="color:red;">@TempData["Errors"]</div>   
+    </div>  
+
+    <div style="margin-top:8px;">    
+      <a class="w3-button w3-blue w3-round"  style="float:right;margin-right:2%;background-color: #27a2ff;color: #ffffff;font-family: OmnesATTII;" asp-action="Index"><img src="~/img/back.svg"/><span style="float: right;">Back to List</span></a> 
+</div>
+      
+
+
+            
+              
+  
+  <script type="text/javascript">
+    function Validate() {
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirmpassword").value;
+        if (password != confirmPassword) {
+            alert("Passwords do not match.");
+            return false;
+        }
+        return true;
+    }
+</script>

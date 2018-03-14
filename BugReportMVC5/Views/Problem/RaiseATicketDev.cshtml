@@ -1,0 +1,122 @@
+﻿@using Microsoft.AspNetCore.Builder
+@using Microsoft.AspNetCore.Http
+@using System.Diagnostics;
+@using Microsoft.AspNetCore.Http;
+@using BugReportMVC5.Models;
+@using Microsoft.AspNetCore.Mvc;
+@using Newtonsoft.Json;
+@model BugReportMVC5.Models.Problem
+@{
+ViewData["Title"]="Raise a Ticket";
+Layout = "_developerDashboardLayout"; }
+  
+
+<header class="w3-container" style="padding-top:22px">
+    <h3>
+        <b>
+             @{
+                    User message = (TempData["User"] as User); // might throw a NullReferenceException
+                }
+            <i class="fa"></i>Raise a Ticket </b>
+    </h3>
+</header>
+
+
+<div class="w3-row-padding w3-margin-bottom">
+
+   
+
+     
+    <script type="text/javascript">
+        
+        $(document).ready(function () {
+            var item = "<option value='0'>---SELECT---</option>";
+            $("#Module_id").html(item);
+        }); 
+
+    </script>
+   
+
+     
+
+
+
+
+        <hr style="width: 50px; border: 5px solid #007bff" class="w3-round">
+
+        <form role="form" class="w3-container" method="post" asp-action="Index">
+
+
+
+
+            @*<div class="form-group">
+                            <label asp-for="Attachment" class="control-label"></label>
+                            <input asp-for="Attachment" class="form-control" />
+                            <span asp-validation-for="Attachment" class="text-danger"></span>
+                        </div>*@
+
+
+            <label asp-for="User_Id" class="w3-text-blue"></label><span class="required">*</span>
+            <input asp-for="User_Id" class="w3-input w3-border" value="@message.user_id" readonly=""/>      
+            <span asp-validation-for="User_Id" class="text-danger"></span>
+
+
+            <label asp-for="Created_By" class="w3-text-blue"></label><span class="required">*</span>
+            <input asp-for="Created_By" class="w3-input w3-border" value="@message.customer_id" readonly=""/>  
+            <span asp-validation-for="Created_By" class="text-danger"></span>
+               
+            <div class="form-group">
+                <label class="w3-text-blue ">Categories</label> <span class="required">*</span>
+                <select  asp-for="Module_Name" name="Module_Name" id="Module_Name" class="form-control w3-input w3-border" asp-items="@(new SelectList(@ViewBag.ListofCategories, "Category_id", "Category_name"))">
+                </select>
+            </div>
+
+            <label asp-for="Problem_Desc" class="w3-text-blue"></label><span class="required">*</span>
+            <input asp-for="Problem_Desc" class="w3-input w3-border"/>
+            <span asp-validation-for="Problem_Desc" class="text-danger"></span>
+
+
+            <label asp-for="Summary" class="w3-text-blue"></label><span class="required">*</span>
+            <input asp-for="Summary" class="w3-input w3-border"/>
+            <span asp-validation-for="Summary" class="text-danger"></span> 
+
+
+            <label asp-for="Severity" class="w3-text-blue">Severity</label>
+
+            <select asp-for="Severity" class="w3-input w3-border">
+                <option value="1">1 - Low</option>
+                <option value="2">2 - Medium</option>
+                <option value="3">3 - High</option>   
+            </select>
+
+
+            <br/>
+             
+
+            <input type="submit" value="Create" class="w3-button w3-green"/>
+
+        </form>
+    </div>
+ 
+
+<script>
+
+    $(document).ready(function() {
+        
+        var url = '@Url.Content("~/")' + "Problem/GetModule";
+        var source = "#Module_Name";
+        
+        $.getJSON(url,
+            { Category_id: $(source).val() },
+            function(data) {
+                var items = '';
+                $("#Module_id").empty();
+                $.each(data,
+                    function(i, module) {
+                        items = "<option value = '" + module.value + "'>" + module.text + "</option>";
+                    });
+                $("#Module_id").html(items);
+            });
+    });
+</script>
+ 

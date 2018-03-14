@@ -1,0 +1,64 @@
+﻿@model IEnumerable<BugReportMVC5.Models.Email>
+
+@{
+ViewData["Title"]="View All Emails";
+Layout = "_adminDashboardLayout"; }  
+
+           
+
+    
+
+                <div  style="margin-left:2%;font-family: OmnesATTII;" >
+    <h3>
+        
+          <img src="/img/admin/email1.svg" />  <span style="color: #545b70; font-weight: 500;font-family: OmnesATTII;font-size: 20px;padding-left:7px;">View All Email Notifications </span>  
+    </h3>
+</div>   
+
+
+  <div class="w3-white" style="width: 96%;margin-left:2%; margin-right:2%;padding:7px;">    
+
+   
+    
+   
+                
+                        @foreach (var item in Model)   
+            {  
+                           <ul class="w3-container" style="margin-left:2%;">
+                                <li>
+                                 <span style="font-size: 16px;font-family: OmnesATTII;color: #333c48;">   @Html.DisplayFor(modelItem => item.Subject) Mail sent to </span> <span style="font-size: 16px;font-family: OmnesATTII;color: #333c48;font-weight: 500;color: #249af1;"> @Html.DisplayFor(modelItem => item.EmailId)</span>  at <span style="color: #39b54a;font-size: 16px;font-family: OmnesATTII;">@Html.DisplayFor(modelItem => item.Timestamp)</span>
+                                </li>  
+     
+                            
+                            </ul>  
+                        }
+
+
+
+    
+        
+            
+</div>
+  
+      
+
+            <form role="form" class="w3-container " method="post" asp-controller="Email" asp-action="deleteEmails"> 
+             
+                    <div class="form-group" style="margin-top:8px;">
+                          
+
+                           
+
+         <button class="w3-button w3-round" type="submit" style="float:right;margin-right:1%;background-image: linear-gradient(to bottom, #e61931, #c91e36);color: #ffffff; font-family: OmnesATTII;">  <img src="~/img/admin/delete.svg" height="12px"/><span style="float: right;padding-left:4px;padding-top:1%;">Delete All Emails</span></button>   
+  
+                    </div>       
+
+                </form>     
+         
+  
+          
+
+
+
+
+      

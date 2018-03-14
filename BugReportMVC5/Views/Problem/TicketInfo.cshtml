@@ -1,0 +1,151 @@
+﻿@model IEnumerable<BugReportMVC5.Models.Problem>
+@{
+ViewData["Title"]="Ticket Information";
+Layout = "_adminDashboardLayout"; }
+
+
+
+              <div  style="margin-left:2%;font-family: OmnesATTII;" >
+    <h3>
+          @{
+                    User message = (TempData["User"] as User); // might throw a NullReferenceException
+                }
+            <img src="~/img/admin/developer.svg"/>  <span style="color: #545b70; font-weight: 500;font-family: OmnesATTII;font-size: 20px;padding-left:7px;">Ticket Information </span>  
+    </h3>
+</div>   
+
+
+
+
+
+   
+
+ <div class="w3-white" style="width: 96%;margin-left:2%; margin-right:2%">  
+
+   
+    
+
+   
+  
+             
+            <div class="Ticket-container" style="margin-left:2%;padding:3px;"> 
+                
+                        @foreach (var item in Model)
+                        {
+                           <div>
+                                <h5><b>Ticket Number: #@Html.DisplayFor(modelItem => item.Ticket_Number)</b></h5>  
+                                <h5>Summary: @Html.DisplayFor(modelItem => item.Summary)</h5>
+                                <h5>Severity: @Html.DisplayFor(modelItem => item.Severity)</h5>
+                                <h5>Current Status: @ViewBag.CurrentStatus</h5>
+                                <p>Description: @Html.DisplayFor(modelItem => item.Problem_Desc)</p>
+                                @if(@ViewBag.CurrentStatus != "Complete")
+                                {
+                                    <p>Estimated Complete Date: @ViewBag.EstimatedCompleteDate</p>
+                                }
+                                <p>Assigned To: @ViewBag.DeveloperName</p> 
+                                <input name="user_id" type="hidden" value="@item.User_Id" />   
+                            </div>
+                        }
+                    </div>
+
+                      
+
+
+  
+                </div> 
+
+
+
+
+     <div style="margin-top:8px;">    
+      <a class="w3-button w3-blue w3-round"  style="float:right;margin-right:2%;background-color: #27a2ff;color: #ffffff;font-family: OmnesATTII;" asp-action="viewStatus"><img src="~/img/back.svg"/><span style="float: right;">Back to List</span></a> 
+</div>
+      <br>
+
+           <div  style="margin-left:2%;font-family: OmnesATTII;" >
+    <h3>
+          
+            <img src="~/img/conversations.svg"/> <span style="color: #545b70; font-weight: 500;font-family: OmnesATTII;font-size: 20px;padding-left:7px;">Conversations </span>    
+    </h3>
+</div>   
+
+
+
+
+
+                    
+                  <!-- The conversation view for the specific ticket-->
+
+                   <div class="w3-white w3-round" style="width: 96%;margin-left:2%; margin-right:2%;">  
+   
+
+
+           
+            
+                    @foreach (var item in ViewBag.AllComments)
+                    {
+     <div class="Ticket-container w3-round" style="padding-left:2%;padding-right:1%;border-bottom: 1px solid;border-color:#e7e9ed;"> 
+
+
+                                      @if(@item.user_name.ToString().Equals("admin"))
+                         {
+                           
+                                  <fieldset class="w3-white"> 
+         
+                                <h5 class="w3-text-red">@item.user_name Notes</h5>
+                                <h5 align="right" class="w3-medium">@item.comment_date</h5>
+                                 <h5>@item.description</h5>
+                            </fieldset>  
+                             }
+
+    else {   
+
+                               <fieldset >   
+                                <h5 class="w3-text-blue">@item.user_name</h5>   
+                                <h5 align="right" class="w3-medium">@item.comment_date</h5>  
+                                <h5>@item.description</h5>  
+                            </fieldset>  
+            
+    }
+
+       
+          </div>  
+  
+       
+    
+                       
+                    }
+
+
+
+
+     <div class="w3-row" style="padding-left:1%;padding-right:1%;padding-bottom:1%;padding-top:1%;">
+            @using (Html.BeginForm("TicketComment", "Problem"))
+            {
+                if(@ViewBag.StatusId != 3 && @ViewBag.AllComments != null)
+                 {
+
+        <input  class="form-control" style="float:left;width: 88%;margin-left: 1%;" name="Comment" required=""/>  
+                     
+                    @Html.Hidden("User_Name", @message.user_name)
+                      
+       
+          
+   
+                     <input name="assign" class="w3-button w3-green w3-round" style="float: right; width:10%;background-image: linear-gradient(to bottom, #39b54a, #33aa44);text-align: center;color: #ffffff;font-family: OmnesATTII;"  type="submit" value="Add Comment" disabled="true"/>
+                }
+                 else 
+                 {
+                     <label class="form-group control-label left-label col-xs-3 col-sm-3 col-md-3 w3-small w3-text-blue">Ticket already completed</label>
+                 }
+            }
+        </div>
+
+
+           
+
+    
+</div>
+          
+ 
+    
